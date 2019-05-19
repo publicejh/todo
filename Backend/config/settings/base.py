@@ -91,6 +91,11 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+REST_FRAMEWORK = {
+    # 'DATETIME_INPUT_FORMATS': '%Y-%m-%dT%H:%M:%S+09:00',
+    'DATETIME_FORMAT': '%Y-%m-%dT%H:%M:%S+09:00',
+}
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 

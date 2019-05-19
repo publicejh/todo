@@ -20,11 +20,14 @@ class Todo(models.Model):
     todo_title = models.CharField(max_length=45, verbose_name='TODO 제목')
     todo_content = models.TextField(verbose_name='TODO 내용')
     deadline = models.DateTimeField(null=True, blank=True, verbose_name='기한')
-    status = models.IntegerField(choices=STATUS_TYPE, verbose_name='상태')
+    status = models.IntegerField(choices=STATUS_TYPE, default=STATUS_TYPE[0][0], verbose_name='상태')
     priority = models.IntegerField(choices=PRIORITY_TYPE, verbose_name='중요도')
     is_deleted = models.BooleanField(default=False, verbose_name='삭제 여부')
     created_time = models.DateTimeField(auto_now_add=True, verbose_name='작성 시간')
     modified_time = models.DateTimeField(auto_now=True, verbose_name='수정 시간')
+
+    def priority_name(self):
+        return self.PRIORITY_TYPE[self.priority][1]
 
     def __str__(self):
         return self.todo_title
