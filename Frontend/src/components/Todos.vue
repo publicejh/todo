@@ -5,7 +5,7 @@
             <v-list-tile
               avatar
               ripple
-              @click=""
+              v-on:click="jumpToDetail(todo.id)"
             >
               <v-list-tile-content>
                 <v-list-tile-title>{{ todo.todo_title }}</v-list-tile-title>
@@ -56,8 +56,13 @@ export default {
   },
 
   computed: {
+  },
 
-  }
+  methods: {
+    jumpToDetail (todo_id) {
+      this.$router.push("/" + todo_id)
+    }
+  },
 
 }
 </script>

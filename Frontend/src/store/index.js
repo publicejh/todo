@@ -12,12 +12,22 @@ export const store = new Vuex.Store({
   },
 
   actions: {
+    getTodo ({commit}, payload) {
+      return new Promise((resolve, reject) => {
+        axios.get(`api/v1/${payload}/`).then(res => {
+          resolve(res.data)
+        }).catch((e) => {
+          console.log('get todo err: ', e)
+          reject(e)
+        })
+      })
+    },
     getTodos ({commit}, payload) {
       return new Promise((resolve, reject) => {
         axios.get(`api/v1/`).then(res => {
           resolve(res.data)
         }).catch((e) => {
-          console.log('get todo err: ', e)
+          console.log('get todos err: ', e)
           reject(e)
         })
       })
@@ -37,6 +47,39 @@ export const store = new Vuex.Store({
           resolve(res)
         }).catch((e) => {
           console.log('create todo err: ', e)
+          reject(e)
+        })
+      })
+    },
+    updateTodo ({commit}, payload) {
+      return new Promise((resolve, reject) => {
+        axios.put(`api/v1/${payload.id}/`, {
+          todo_title: payload.title,
+          todo_content: payload.content,
+          priority: payload.priority,
+          status: payload.status,
+          deadline: payload.deadline
+          },
+          {
+            headers: {'X-CSRFToken': payload.csrfToken}
+          }
+        ).then(res => {
+          resolve(res)
+        }).catch((e) => {
+          console.log('update todo err: ', e)
+          reject(e)
+        })
+      })
+    },
+    deleteTodo ({commit}, payload) {
+      return new Promise((resolve, reject) => {
+        axios.delete(`api/v1/${payload.id}/`, {
+            headers: {'X-CSRFToken': payload.csrfToken}
+          }
+        ).then(res => {
+          resolve(res)
+        }).catch((e) => {
+          console.log('delete todo err: ', e)
           reject(e)
         })
       })

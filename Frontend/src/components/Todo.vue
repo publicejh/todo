@@ -1,6 +1,6 @@
 <template>
   <v-app style="padding: 10px;">
-    <form>
+    <form v-if="todoReady">
       <v-text-field
         v-model="title"
         :error-messages="titleErrors"
@@ -43,6 +43,16 @@
         @change="$v.priority.$touch()"
         @blur="$v.priority.$touch()"
       ></v-select>
+      <v-select
+        v-model="status"
+        :items="statuses"
+        item-text="text"
+        item-value="value"
+        label="Status"
+        required
+        @change="$v.status.$touch()"
+        @blur="$v.status.$touch()"
+      ></v-select>
       <v-checkbox
         v-model="deadineYN"
         label="Insert deadline"
@@ -53,8 +63,8 @@
         <date-picker v-model="deadline" :config="options"></date-picker>
       </div>
       <div style="margin-top: 10px">
-        <v-btn color="primary" @click="submit">submit</v-btn>
-        <v-btn @click="clear">clear</v-btn>
+        <v-btn @click="update">update</v-btn>
+        <v-btn color="error" @click="deleteTodo">delete</v-btn>
       </div>
     </form>
   </v-app>
@@ -71,13 +81,11 @@
       content: { required },
     //   email: { required, email },
       priority: { required },
-      deadineYN: {
-        checked (val) {
-          return val
-        }
-      }
+      status: { required },
+      deadineYN: false
     },
     data: () => ({
+      todoReady: false,
       title: '',
     //   email: '',
       content: '',
@@ -89,6 +97,12 @@
         { text: '사소', value: 3 },
         { text: '매우 사소', value: 4 }
       ],
+      status: null,
+      statuses: [
+        { text: '발의', value: 0 },
+        { text: '진행', value: 1 },
+        { text: '완료', value: 2 }
+      ],
       deadineYN: false,
       deadline: new Date(),
       options: {
@@ -96,6 +110,27 @@
         useCurrent: false,
       }  
     }),
+    props: [
+      'id'
+    ],
+    created() {
+      this.$store.dispatch('getTodo', this.id).then((res => {
+        this.todoReady = true
+        this.title = res.todo_title
+        this.content = res.todo_content
+        this.priority = res.priority
+        this.status = res.status
+        if (res.deadline) {
+          this.deadineYN = true
+          this.deadline = new Date(res.deadline)
+        }
+        console.log(this.deadineYN)
+        console.log(this.deadline)
+      }), error => {
+        console.error("Got nothing from server. Prompt user to check internet connection and try again")
+      })
+  
+    },
     computed: {
       priorityErrors () {
         const errors = []
@@ -125,33 +160,40 @@
     //   }
     },
     methods: {
-      submit () {
+      update () {
         this.$v.$touch()
         if (this.title && this.content && this.priority !== null) {
             console.log(this.title, this.content, this.priority, this.deadineYN, this.deadline)
             var payload = {
+              id: this.id,
               title: this.title,
               content: this.content,
               priority: this.priority,
+              status: this.status,
               deadline: this.deadineYN ? this.deadline : null,
               csrfToken: this.$cookie.get('csrftoken')
             }
-            this.$store.dispatch('createTodo', payload).then(res => {
+            this.$store.dispatch('updateTodo', payload).then(res => {
               console.log(res)
               this.$router.push("/")
             }, error => {
-              console.log('createTodo error: ', error)
+              console.log('updateTodo error: ', error)
             })
         }
       },
-      clear () {
-        this.$v.$reset()
-        this.title = ''
-        // this.email = ''
-        this.content = ''
-        this.priority = null
-        this.deadineYN = false
-        this.deadline = new Date()
+      deleteTodo () {
+        if (confirm('삭제하시겠습니까?')) {
+            var payload = {
+              id: this.id,
+              csrfToken: this.$cookie.get('csrftoken')
+            }
+            this.$store.dispatch('deleteTodo', payload).then(res => {
+                console.log(res)
+                this.$router.push("/")
+            }, error => {
+                console.log('deleteTodo error: ', error)
+            })
+        }
       }
     }
   }
