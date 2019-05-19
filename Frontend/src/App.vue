@@ -1,22 +1,24 @@
 <template>
   <v-app style="background-color:#ddd">
-    <v-toolbar color="blue-grey darken-2" style="position:fixed; z-index:10000000">
-      <v-toolbar-title>
-        <router-link to="/" tag="span" style="cursor: pointer">
-          TODO
-        </router-link>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-toolbar-items v-for="item in menuItems" v-bind:key="item.title">
-        <v-btn flat :key="item.title" :to="item.route">
-          <v-icon left>{{ item.icon }}</v-icon>
-          <div class="hidden-xs-only">{{ item.title }}</div>
-        </v-btn>
-      </v-toolbar-items>
-    </v-toolbar> 
-    <main style="margin-top:100px;">
-      <router-view></router-view>
-    </main>
+    <div>
+      <v-toolbar fixed color="blue-grey darken-2">
+        <v-toolbar-title>
+          <router-link to="/" tag="span" style="cursor: pointer">
+            TODO
+          </router-link>
+        </v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-toolbar-items v-for="item in menuItems" v-bind:key="item.title">
+          <v-btn flat :key="item.title" :to="item.route">
+            <v-icon left>{{ item.icon }}</v-icon>
+            <div class="hidden-xs-only">{{ item.title }}</div>
+          </v-btn>
+        </v-toolbar-items>
+      </v-toolbar> 
+      <main style="margin-top:80px;">
+        <router-view></router-view>
+      </main>
+    </div>
   </v-app>
 </template>
 

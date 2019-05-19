@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire" style="max-width: 600px; margin: auto; padding: 10px;">
+  <v-app style="padding: 10px;">
     <form>
       <v-text-field
         v-model="title"
