@@ -15,3 +15,12 @@ sudo apt install apache2
 sudo mv /{project}/Frontent/dist/index.html /var/www/html/
 
 sudo mv /{project}/Frontent/dist/static /var/www/html/
+
+cd /{project}/Backend/
+
+python3 manage.py migrate
+
+python3 manage.py runserver 8000
+
+
+--> localhost로 접속
