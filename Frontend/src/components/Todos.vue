@@ -9,12 +9,11 @@
             >
               <v-list-tile-content>
                 <v-list-tile-title>{{ todo.todo_title }}</v-list-tile-title>
-                <v-list-tile-sub-title class="text--primary">{{ todo.modified_time }}</v-list-tile-sub-title>
                 <v-list-tile-sub-title>{{ todo.todo_content }}</v-list-tile-sub-title>
               </v-list-tile-content>
 
               <v-list-tile-action>
-                <v-list-tile-action-text>{{ todo.deadline }}</v-list-tile-action-text>
+                <v-list-tile-action-text>{{ todo.deadline_str }}</v-list-tile-action-text>
                 <v-list-tile-action-text>{{ todo.priority_name }}</v-list-tile-action-text>
 
                 <v-btn small v-if="todo.status == 0">발의</v-btn>

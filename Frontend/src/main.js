@@ -12,6 +12,8 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css'
 import VueCookie from 'vue-cookie'
 import Notifications from 'vue-notification'
+import moment from 'moment'
+import VueMomentJs from 'vue-momentjs'
 
 
 Vue.use(datePicker)
@@ -20,6 +22,7 @@ Vue.use(Vuetify, {
 })
 Vue.use(VueCookie)
 Vue.use(Notifications)
+Vue.use(VueMomentJs, moment)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

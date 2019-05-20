@@ -170,7 +170,7 @@
               content: this.content,
               priority: this.priority,
               status: this.status,
-              deadline: this.deadineYN ? this.deadline : null,
+              deadline: this.deadineYN ? this.$moment(this.deadline).format('YYYY-MM-DD HH:mm') : null,
               csrfToken: this.$cookie.get('csrftoken')
             }
             this.$store.dispatch('updateTodo', payload).then(res => {

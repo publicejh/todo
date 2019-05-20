@@ -81,7 +81,7 @@ export default {
             group: 'foo',
             // title: '<h4>Nothing!</h4>',
             title: 'Overdue : ' + this.overdues[this.overdue_cnt - 1].todo_title,
-            text: this.overdues[this.overdue_cnt - 1].deadline,
+            text: this.overdues[this.overdue_cnt - 1].deadline_str,
             type: 'error',
             duration: -10
         })

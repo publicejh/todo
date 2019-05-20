@@ -33,6 +33,12 @@ class Todo(models.Model):
     def priority_name(self):
         return self.PRIORITY_TYPE[self.priority][1]
 
+    def deadline_str(self):
+        if self.deadline:
+            return self.deadline.strftime('%m/%d/%Y %I:%M %p')
+        else:
+            return ''
+
     @classmethod
     def get_overdue(cls):
         return cls.objects.filter(is_deleted=False, status__in=[0, 1], deadline__lt=datetime.datetime.now())

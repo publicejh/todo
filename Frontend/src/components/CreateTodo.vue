@@ -133,7 +133,7 @@
               title: this.title,
               content: this.content,
               priority: this.priority,
-              deadline: this.deadineYN ? this.deadline : null,
+              deadline: this.deadineYN ? this.$moment(this.deadline).format('YYYY-MM-DD HH:mm') : null,
               csrfToken: this.$cookie.get('csrftoken')
             }
             this.$store.dispatch('createTodo', payload).then(res => {
