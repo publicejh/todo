@@ -4,6 +4,10 @@ import axios from 'axios'
 
 Vue.use(Vuex)
 
+var axiosInstance = axios.create({
+    baseURL: "http://localhost:8000"
+})
+
 export const store = new Vuex.Store({
   state: {
   },
@@ -14,7 +18,7 @@ export const store = new Vuex.Store({
   actions: {
     getTodo ({commit}, payload) {
       return new Promise((resolve, reject) => {
-        axios.get(`api/v1/${payload}/`).then(res => {
+        axiosInstance.get(`api/v1/${payload}/`).then(res => {
           resolve(res.data)
         }).catch((e) => {
           console.log('get todo err: ', e)
@@ -24,7 +28,7 @@ export const store = new Vuex.Store({
     },
     getTodos ({commit}, payload) {
       return new Promise((resolve, reject) => {
-        axios.get(`api/v1/`).then(res => {
+        axiosInstance.get(`api/v1/`).then(res => {
           resolve(res.data)
         }).catch((e) => {
           console.log('get todos err: ', e)
@@ -34,7 +38,7 @@ export const store = new Vuex.Store({
     },
     createTodo ({commit}, payload) {
       return new Promise((resolve, reject) => {
-        axios.post(`api/v1/create/`, {
+        axiosInstance.post(`api/v1/create/`, {
           todo_title: payload.title,
           todo_content: payload.content,
           priority: payload.priority,
@@ -53,7 +57,7 @@ export const store = new Vuex.Store({
     },
     updateTodo ({commit}, payload) {
       return new Promise((resolve, reject) => {
-        axios.put(`api/v1/${payload.id}/`, {
+        axiosInstance.put(`api/v1/${payload.id}/`, {
           todo_title: payload.title,
           todo_content: payload.content,
           priority: payload.priority,
@@ -73,7 +77,7 @@ export const store = new Vuex.Store({
     },
     deleteTodo ({commit}, payload) {
       return new Promise((resolve, reject) => {
-        axios.delete(`api/v1/${payload.id}/`, {
+        axiosInstance.delete(`api/v1/${payload.id}/`, {
             headers: {'X-CSRFToken': payload.csrfToken}
           }
         ).then(res => {
@@ -86,7 +90,7 @@ export const store = new Vuex.Store({
     },
     getOverdue ({commit}, payload) {
       return new Promise((resolve, reject) => {
-        axios.get(`api/v1/overdue/`).then(res => {
+        axiosInstance.get(`api/v1/overdue/`).then(res => {
           resolve(res.data)
         }).catch((e) => {
           console.log('get overdue err: ', e)
