@@ -11,11 +11,9 @@ class Todo(models.Model):
     )
 
     PRIORITY_TYPE = (
-        (0, '매우 중요'),
-        (1, '중요'),
-        (2, '보통'),
-        (3, '사소'),
-        (4, '매우 사소'),
+        (0, '중요'),
+        (1, '보통'),
+        (2, '사소'),
     )
 
     todo_title = models.CharField(max_length=45, verbose_name='TODO 제목')
@@ -38,6 +36,12 @@ class Todo(models.Model):
             return self.deadline.strftime('%m/%d/%Y %I:%M %p')
         else:
             return ''
+
+    def is_overdue(self):
+        if self.deadline and (self.deadline - datetime.datetime.now()).total_seconds() < 0:
+            return True
+        else:
+            return False
 
     @classmethod
     def get_overdue(cls):

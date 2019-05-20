@@ -91,11 +91,9 @@
       content: '',
       priority: null,
       priorities: [
-        { text: '매우 중요', value: 0 },
-        { text: '중요', value: 1 },
-        { text: '보통', value: 2 },
-        { text: '사소', value: 3 },
-        { text: '매우 사소', value: 4 }
+        { text: '중요', value: 0 },
+        { text: '보통', value: 1 },
+        { text: '사소', value: 2 }
       ],
       status: null,
       statuses: [

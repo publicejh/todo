@@ -1,6 +1,6 @@
 <template>
-  <v-app style="background-color:#ddd">
-    <div>
+  <v-app style="background-color:#ddd;">
+    <div style="margin: 0 auto; width:700px">
       <v-toolbar fixed color="blue-grey darken-2">
         <v-toolbar-title>
           <router-link to="/" tag="span" style="cursor: pointer">
