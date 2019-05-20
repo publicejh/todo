@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+import datetime
 
 
 class Todo(models.Model):
@@ -26,8 +27,12 @@ class Todo(models.Model):
     created_time = models.DateTimeField(auto_now_add=True, verbose_name='작성 시간')
     modified_time = models.DateTimeField(auto_now=True, verbose_name='수정 시간')
 
+    def __str__(self):
+        return self.todo_title
+
     def priority_name(self):
         return self.PRIORITY_TYPE[self.priority][1]
 
-    def __str__(self):
-        return self.todo_title
+    @classmethod
+    def get_overdue(cls):
+        return cls.objects.filter(is_deleted=False, status__in=[0, 1], deadline__lt=datetime.datetime.now())

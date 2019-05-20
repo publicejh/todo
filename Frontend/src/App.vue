@@ -8,6 +8,10 @@
           </router-link>
         </v-toolbar-title>
         <v-spacer></v-spacer>
+        <v-btn flat v-on:click="notify">
+          <v-icon>notification_important</v-icon>
+          <div class="hidden-xs-only">{{ overdue_cnt }}</div>
+        </v-btn>
         <v-toolbar-items v-for="item in menuItems" v-bind:key="item.title">
           <v-btn flat :key="item.title" :to="item.route">
             <v-icon left>{{ item.icon }}</v-icon>
@@ -19,12 +23,30 @@
         <router-view></router-view>
       </main>
     </div>
+    <notifications group="foo" position="bottom right" />
   </v-app>
 </template>
 
 <script>
 export default {
   name: 'App',
+
+  data () {
+    return {
+      overdues: [],
+      overdue_cnt: 0
+    }
+  },
+
+  created() {
+    this.$store.dispatch('getOverdue').then(res => {
+      this.overdues = res
+      this.overdue_cnt = this.overdues.length
+    }, error => {
+      console.log('getOverdue error: ', error)
+    })
+  },
+
   computed: {
       menuItems () {
         let items = [
@@ -50,7 +72,23 @@ export default {
         console.log(this.$store.getters.onlineUsers)
         return this.$store.getters.onlineUsers
       }
+  },
+  methods: {
+    notify () {
+      console.log(this.overdue_cnt)
+      if (this.overdue_cnt > 0) {
+        this.$notify({
+            group: 'foo',
+            // title: '<h4>Nothing!</h4>',
+            title: 'Overdue : ' + this.overdues[this.overdue_cnt - 1].todo_title,
+            text: this.overdues[this.overdue_cnt - 1].deadline,
+            type: 'error',
+            duration: -10
+        })
+        this.overdue_cnt -= 1
+      }
     }
+  }
 
 
 

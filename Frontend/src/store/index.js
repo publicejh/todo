@@ -83,6 +83,16 @@ export const store = new Vuex.Store({
           reject(e)
         })
       })
+    },
+    getOverdue ({commit}, payload) {
+      return new Promise((resolve, reject) => {
+        axios.get(`api/v1/overdue/`).then(res => {
+          resolve(res.data)
+        }).catch((e) => {
+          console.log('get overdue err: ', e)
+          reject(e)
+        })
+      })
     }
   },
 

@@ -11,6 +11,7 @@ import datePicker from 'vue-bootstrap-datetimepicker'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.css'
 import VueCookie from 'vue-cookie'
+import Notifications from 'vue-notification'
 
 
 Vue.use(datePicker)
@@ -18,6 +19,7 @@ Vue.use(Vuetify, {
   iconfont: 'md'
 })
 Vue.use(VueCookie)
+Vue.use(Notifications)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

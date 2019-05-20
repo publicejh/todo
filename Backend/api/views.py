@@ -10,10 +10,15 @@ class TodoCreateView(generics.CreateAPIView):
 
 
 class TodoListView(generics.ListAPIView):
-    queryset = Todo.objects.all().order_by('-modified_time')
+    queryset = Todo.objects.filter(is_deleted=False).order_by('-modified_time')
     serializer_class = TodoListSerializer
 
 
 class TodoRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Todo.objects.all()
     serializer_class = TodoSerializer
+
+
+class TodoOverdueListView(generics.ListAPIView):
+    queryset = Todo.get_overdue()
+    serializer_class = TodoListSerializer
