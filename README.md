@@ -1,10 +1,13 @@
 # todo
 Project which manages todos
 
-# 기술 스택
-서버: Django
+# UI
+[web-UI](https://github.com/publicejh/todo/wiki/web-UI)
 
-프런트: Vue.js
+# 기술 스택
+서버: Django(used django rest framework)
+
+프런트: Vue.js(used vuex)
 
 # 리눅스 서버 설치 및 실행
 apt-get install git-core
@@ -17,9 +20,9 @@ pip3 install -r requirements.txt
 
 sudo apt install apache2
 
-sudo mv /{project}/Frontent/dist/index.html /var/www/html/
+sudo cp /{project}/Frontent/dist/index.html /var/www/html/
 
-sudo mv /{project}/Frontent/dist/static /var/www/html/
+sudo cp /{project}/Frontent/dist/static /var/www/html/
 
 cd /{project}/Backend/
 
