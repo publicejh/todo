@@ -4,6 +4,9 @@ Project which manages todos
 # UI
 [web-UI](https://github.com/publicejh/todo/wiki/web-UI)
 
+# 배포 URL
+[URL](http://54.180.45.65/)
+
 # 기술 스택
 서버: Django(used django rest framework)
 
